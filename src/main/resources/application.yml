@@ -1,0 +1,17 @@
+spring:
+    application:
+        name: pass-web
+    datasource:
+        url: jdbc:mysql://localhost:3306/firstproject_db?serverTimezone=UTC&characterEncoding=UTF-8&rewriteBatchedStatements=true
+        username: root
+        password: root
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    thymeleaf:
+        cache: false
+
+    jpa:
+        hibernate:
+            ddl-auto: none
+        generate-ddl: true
+        show-sql: true
+        defer-datasource-initialization: true
