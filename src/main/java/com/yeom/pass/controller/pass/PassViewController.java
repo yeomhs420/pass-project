@@ -1,5 +1,6 @@
 package com.yeom.pass.controller.pass;
 
+import com.yeom.pass.repository.instructor.InstructDto;
 import com.yeom.pass.service.instructor.Instructor;
 import com.yeom.pass.service.instructor.InstructorService;
 import com.yeom.pass.service.pass.Pass;
@@ -48,7 +49,7 @@ public class PassViewController {
 
     @PostMapping("/reserve_date")
     @ResponseBody
-    public ResponseEntity<List<Instructor>> reserveDate(@RequestBody Map<String, String> data) {
+    public ResponseEntity<List<InstructDto>> reserveDate(@RequestBody Map<String, String> data) {
 
         String currentYear = data.get("year");
         String clickedMonth = data.get("month");
@@ -60,9 +61,9 @@ public class PassViewController {
 
 
         System.out.println(clickedMonth + ',' + clickedDate);
-        List<Instructor> instructorList = instructorService.getInstructorsByDate(currentYear + "-" + clickedMonth + "-" + clickedDate);
-        //System.out.println(instructorList.toString());
+        List<InstructDto> instructDtoList = instructorService.getInstructorsByDate(currentYear + "-" + clickedMonth + "-" + clickedDate);
+        System.out.println(instructDtoList.toString());
 
-        return new ResponseEntity<>(instructorList, HttpStatus.OK); // 해당 날짜에 등록되어있는 강사들과 해당 강사의 비어있는 시간들을 반환
+        return new ResponseEntity<>(instructDtoList, HttpStatus.OK); // 해당 날짜에 등록되어있는 강사들과 해당 강사의 비어있는 시간들을 반환
     }
 }
