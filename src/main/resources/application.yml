@@ -9,9 +9,22 @@ spring:
     thymeleaf:
         cache: false
 
+    sql:
+        init:
+            data-locations: classpath:insert.sql
+            mode: always
+
     jpa:
         hibernate:
-            ddl-auto: none
+            ddl-auto: create
         generate-ddl: true
         show-sql: true
         defer-datasource-initialization: true
+    mvc:
+        view:
+            prefix: /templates/
+            suffix: .html
+        mustache:
+            prefix: /templates/
+            suffix: .mustache
+            expose-session-attributes: true

@@ -1,6 +1,7 @@
 package com.yeom.pass.controller.pass;
 
 import com.yeom.pass.repository.instructor.InstructDto;
+import com.yeom.pass.repository.user.UserDto;
 import com.yeom.pass.service.instructor.Instructor;
 import com.yeom.pass.service.instructor.InstructorService;
 import com.yeom.pass.service.pass.Pass;
@@ -10,9 +11,11 @@ import com.yeom.pass.service.user.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -42,9 +45,12 @@ public class PassViewController {
         return modelAndView;
     }
 
-    @GetMapping("/reserve")
-    public String test() {
-        return "/pass/calendar";
+    @PostMapping("/reserve")
+    public ModelAndView reservePass(@RequestParam("passSeq") Long passSeq, ModelAndView modelAndView) {
+        modelAndView.addObject("passSeq", passSeq);
+        modelAndView.setViewName("pass/calendar");
+
+        return modelAndView;
     }
 
     @PostMapping("/reserve_date")
@@ -66,4 +72,5 @@ public class PassViewController {
 
         return new ResponseEntity<>(instructDtoList, HttpStatus.OK); // 해당 날짜에 등록되어있는 강사들과 해당 강사의 비어있는 시간들을 반환
     }
+
 }

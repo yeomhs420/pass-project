@@ -18,6 +18,9 @@ function calendarInit() {
     var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
     var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
 
+    var passSeq = document.querySelector("input[name=passSeq]").value;  // 컨트롤러에서 model 을 통해 넘겨준 passSeq 데이터
+    console.log(passSeq)
+
     // kst 기준 현재시간
     // console.log(thisMonth);
 
@@ -105,23 +108,48 @@ function calendarInit() {
           });
 
           sortedInstructors.forEach((instructor) => {
+
             const listItem = $('<li>');
             const reserveNumber = instructor.reserveNumber || 0; // reserveNumber 값이 없으면 0으로 초기화
 
-            listItem.html(`${instructor.name}<div class="box">
-                <img src="/admin/img/undraw_profile_2.svg" style="width:100px">
-                <span style="margin-left: 10px;">${instructor.time}</span>
-                <span style="margin-left: 10px;">${reserveNumber}/${instructor.limitNumber}</span>
-                </div>`);
+            const box = $('<div class="box">');
+            const profileImg = $('<img src="/admin/img/undraw_profile_2.svg" style="width:100px">');
+            const timeSpan = $(`<span style="margin-left: 10px;">${instructor.time}</span>`);
+            const countSpan = $(`<span style="margin-left: 10px;">${reserveNumber}/${instructor.limitNumber}</span>`);
+            const reserveBtn = $('<button>예약</button>');
 
-            list.append(listItem);
+                // 예약 버튼 클릭 시 instructor의 reserveNumber 값 증가
+            reserveBtn.click(() => {
+              if (reserveNumber !== undefined && reserveNumber !== null && reserveNumber < instructor.limitNumber) {
+                instructor.reserveNumber = reserveNumber + 1;
+                countSpan.text(`${instructor.reserveNumber}/${instructor.limitNumber}`);
+                $.ajax({
+                  url: 'http://localhost:8081/job/launcher',
+                  method: 'POST',
+                  data: JSON.stringify({name: 'usePassesJob', jobParameters: {userId: 'A1000001', passSeq: passSeq}}),
+                  contentType: "application/json; charset=utf-8",
+                  dataType: 'json',
+                  success: function(response) {
+                    alert('수업이 예약되었습니다!');
+                    location.reload();
+                    console.log(response);
+                  },
+                  error: function(xhr, status, error) {
+                    console.error(error);
+                  }
+                });
+              }
+            });
+
+                box.append(profileImg, timeSpan, countSpan, reserveBtn);
+                listItem.html(`${instructor.name}`);
+                listItem.append(box);
+
+                list.append(listItem);
           });
 
           $('.reservation-list').html(list);
       } // instructors 리스트를 Time 순서대로 나열
-
-
-
 
 
 

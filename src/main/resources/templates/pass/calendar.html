@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>달력 예시</title>
     <link href="/pass/css/calendar.css" rel="stylesheet"/>
@@ -12,6 +12,7 @@
         <div class="month"></div>
         <a href="javascript:;" class="nav-btn go-next">next</a>
     </div>
+    <input hidden name="passSeq" th:value="${passSeq}"></input>
     <div class="cal_wrap">
         <div class="days">
             <div class="day">MON</div>
@@ -26,6 +27,7 @@
         <ul class="reservation-list"></ul>
     </div>
 </div>
+
 
 
 <script src="/pass/js/calendar.js"></script>

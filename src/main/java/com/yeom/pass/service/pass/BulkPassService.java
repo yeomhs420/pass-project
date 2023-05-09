@@ -1,6 +1,7 @@
 package com.yeom.pass.service.pass;
 
 import com.yeom.pass.controller.admin.BulkPassRequest;
+import com.yeom.pass.repository.booking.BookingEntity;
 import com.yeom.pass.repository.packaze.PackageEntity;
 import com.yeom.pass.repository.packaze.PackageRepository;
 import com.yeom.pass.repository.pass.BulkPassEntity;
@@ -30,6 +31,7 @@ public class BulkPassService {
     public void addBulkPass(BulkPassRequest bulkPassRequest) {
         // bulkPassRequest 를 기반으로 passEntity 를 생성하여 DB에 저장
         PackageEntity packageEntity = packageRepository.findById(bulkPassRequest.getPackageSeq()).orElseThrow();
+
 
         BulkPassEntity bulkPassEntity = BulkPassModelMapper.INSTANCE.map(bulkPassRequest);
         bulkPassEntity.setStatus(BulkPassStatus.READY);
