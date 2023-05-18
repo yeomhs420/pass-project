@@ -31,8 +31,8 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-3 px-0 px-lg-3 rounded" href="#passes">이용권</a></li>
 
-                <a th:if="${session.user}" class="nav-link py-3 px-0 px-lg-3 rounded" href="/login/logout">로그아웃</a>
-                <a th:unless="${session.user}" class="nav-link py-3 px-0 px-lg-3 rounded" href="/login">로그인</a>
+                <a th:if="${session.user}" class="nav-link py-3 px-0 px-lg-3 rounded" href="/login/logout">로그아웃</a> <!--조건이 참일때 태그를 렌더링 -->
+                <a th:unless="${session.user}" class="nav-link py-3 px-0 px-lg-3 rounded" href="/login">로그인</a> <!--조건이 거짓일때 태그를 렌더링 -->
             </ul>
         </div>
     </div>

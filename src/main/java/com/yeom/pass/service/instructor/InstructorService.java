@@ -14,22 +14,22 @@ public class InstructorService {
 
     public List<InstructDto> getInstructorsByDate(String date){
 
-
         List<InstructDto> instructDtoList = new ArrayList<>();
 
-        List<Object[]> List = em.createQuery("SELECT i.name, idt.time, idt.limitNumber, idt.reserveNumber\n" +
+        List<Object[]> List = em.createQuery("SELECT idt.id, i.name, idt.time, idt.limitNumber, idt.reserveNumber\n" +
                 "FROM Instruct i\n" +
                 "INNER JOIN i.instructDates id\n" + "INNER JOIN id.instructDateTimes idt\n" +
                 "WHERE id.date = :date", Object[].class).setParameter("date", date).getResultList();
 
 
         for (Object[] result : List) {
-            String name = result[0].toString();
-            String time = result[1].toString();
-            String limitNumber = result[2].toString();
-            String reserveNumber = result[3].toString();
+            Integer id = Integer.parseInt(result[0].toString());
+            String name = result[1].toString();
+            String time = result[2].toString();
+            String limitNumber = result[3].toString();
+            String reserveNumber = result[4].toString();
 
-            InstructDto instructDto = new InstructDto(name,time,limitNumber,reserveNumber);
+            InstructDto instructDto = new InstructDto(id, name,time,limitNumber,reserveNumber);
             instructDtoList.add(instructDto);
         }
 

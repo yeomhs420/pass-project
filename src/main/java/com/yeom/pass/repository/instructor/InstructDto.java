@@ -12,11 +12,13 @@ import java.util.Map;
 @AllArgsConstructor
 public class InstructDto {
 
+    private Integer id;
+
     private String name;
 
     private String time;
 
     private String limitNumber;
 
-    private String reverseNumber;
+    private String reserveNumber;
 }

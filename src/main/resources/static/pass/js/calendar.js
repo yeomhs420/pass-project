@@ -18,6 +18,7 @@ function calendarInit() {
     var currentMonth = thisMonth.getMonth(); // 달력에서 표기하는 월
     var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
 
+
     var passSeq = document.querySelector("input[name=passSeq]").value;  // 컨트롤러에서 model 을 통해 넘겨준 passSeq 데이터
     console.log(passSeq)
 
@@ -89,7 +90,7 @@ function calendarInit() {
                                       })
                               .done(function(json) {
                                    console.log(json);
-                                   renderReservationList(json);
+                                   renderReservationList(json, clickedDate, clickedMonth);
                                })
                             });
                           });
@@ -97,7 +98,7 @@ function calendarInit() {
     }
 
 
-      function renderReservationList(instructors) {
+      function renderReservationList(instructors, clickedDate, clickedMonth) {
         const list = $('<ul>');
 
           // time순으로 instructors 배열을 정렬합니다.
@@ -110,6 +111,8 @@ function calendarInit() {
           sortedInstructors.forEach((instructor) => {
 
             const listItem = $('<li>');
+            console.log(instructor);
+            console.log(instructor.reserveNumber);
             const reserveNumber = instructor.reserveNumber || 0; // reserveNumber 값이 없으면 0으로 초기화
 
             const box = $('<div class="box">');
@@ -118,20 +121,32 @@ function calendarInit() {
             const countSpan = $(`<span style="margin-left: 10px;">${reserveNumber}/${instructor.limitNumber}</span>`);
             const reserveBtn = $('<button>예약</button>');
 
-                // 예약 버튼 클릭 시 instructor의 reserveNumber 값 증가
+
+            var Year = currentYear.toString();
+            var Month;
+            if (clickedMonth >= 1 && clickedMonth <= 9) {
+                Month = "0" + clickedMonth.toString();
+            }
+            var Date = clickedDate.toString();
+            var current = Year + '-' + Month + '-' + Date;
+
+            var start_time = current + ' ' + instructor.time.split("-")[0];
+
+            var end_time = current + ' ' + instructor.time.split("-")[1];
+
+                // 예약 버튼 클릭 시 instructor 의 reserveNumber 값 증가
             reserveBtn.click(() => {
               if (reserveNumber !== undefined && reserveNumber !== null && reserveNumber < instructor.limitNumber) {
-                instructor.reserveNumber = reserveNumber + 1;
                 countSpan.text(`${instructor.reserveNumber}/${instructor.limitNumber}`);
                 $.ajax({
                   url: 'http://localhost:8081/job/launcher',
                   method: 'POST',
-                  data: JSON.stringify({name: 'usePassesJob', jobParameters: {userId: 'A1000001', passSeq: passSeq}}),
+                  data: JSON.stringify({name: 'usePassesJob', jobParameters: {userId: 'A1000001', passSeq: passSeq, started_at: start_time, ended_at: end_time, instructor_id: instructor.id}}),
                   contentType: "application/json; charset=utf-8",
                   dataType: 'json',
                   success: function(response) {
                     alert('수업이 예약되었습니다!');
-                    location.reload();
+                    location.href = '/passes?userId=' + 'A1000001'; // userId는 추후에 session id로 수정
                     console.log(response);
                   },
                   error: function(xhr, status, error) {

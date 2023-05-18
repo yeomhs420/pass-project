@@ -2,7 +2,7 @@ spring:
     application:
         name: pass-web
     datasource:
-        url: jdbc:mysql://localhost:3306/firstproject_db?serverTimezone=UTC&characterEncoding=UTF-8&rewriteBatchedStatements=true
+        url: jdbc:mysql://localhost:3306/firstproject_db?serverTimezone=UTC&useLegacyDatetimeCode=false&rewriteBatchedStatements=true
         username: root
         password: root
         driver-class-name: com.mysql.cj.jdbc.Driver
@@ -20,6 +20,7 @@ spring:
         generate-ddl: true
         show-sql: true
         defer-datasource-initialization: true
+
     mvc:
         view:
             prefix: /templates/

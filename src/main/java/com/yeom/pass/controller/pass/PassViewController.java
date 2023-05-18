@@ -1,5 +1,6 @@
 package com.yeom.pass.controller.pass;
 
+import com.yeom.pass.repository.booking.BookingRepository;
 import com.yeom.pass.repository.instructor.InstructDto;
 import com.yeom.pass.repository.user.UserDto;
 import com.yeom.pass.service.instructor.Instructor;
@@ -8,6 +9,7 @@ import com.yeom.pass.service.pass.Pass;
 import com.yeom.pass.service.pass.PassService;
 import com.yeom.pass.service.user.User;
 import com.yeom.pass.service.user.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,9 @@ public class PassViewController {
     private final PassService passService;
     private final InstructorService instructorService;
 
+    @Autowired
+    private BookingRepository bookingRepository;
+
     public PassViewController(UserService userService, PassService passService, InstructorService instructorService) {
         this.userService = userService;
         this.passService = passService;
@@ -42,10 +47,12 @@ public class PassViewController {
         modelAndView.addObject("user", user);
         modelAndView.setViewName("pass/index");
 
+        System.out.println("ha" + bookingRepository.findAll());
+
         return modelAndView;
     }
 
-    @PostMapping("/reserve")
+    @PostMapping("/reserve")    // 이용권 클릭 시
     public ModelAndView reservePass(@RequestParam("passSeq") Long passSeq, ModelAndView modelAndView) {
         modelAndView.addObject("passSeq", passSeq);
         modelAndView.setViewName("pass/calendar");
@@ -53,7 +60,7 @@ public class PassViewController {
         return modelAndView;
     }
 
-    @PostMapping("/reserve_date")
+    @PostMapping("/reserve_date")   // 날짜 선택 시
     @ResponseBody
     public ResponseEntity<List<InstructDto>> reserveDate(@RequestBody Map<String, String> data) {
 

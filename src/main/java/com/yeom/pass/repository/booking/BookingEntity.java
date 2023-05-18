@@ -2,12 +2,14 @@ package com.yeom.pass.repository.booking;
 
 
 import com.yeom.pass.repository.BaseEntity;
+import com.yeom.pass.repository.instructor.Instruct;
 import com.yeom.pass.repository.pass.PassEntity;
 import com.yeom.pass.repository.user.UserEntity;
 import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Getter
 @Setter
@@ -39,6 +41,11 @@ public class BookingEntity extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "passSeq", insertable = false, updatable = false)
     private PassEntity passEntity;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "instructId", insertable = false, updatable = false)
+    private Instruct instruct;
+
 
     // endedAt 기준, yyyy-MM-HH 00:00:00  -> 일 단위로 변환
     public LocalDateTime getStatisticsAt() {

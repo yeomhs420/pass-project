@@ -49,9 +49,6 @@ public class LoginController {
         userDtoMap.put("password", userDto.getPassword());
 
         return new ResponseEntity<>(userDtoMap, HttpStatus.OK);
-
-        //"redirect:/passes?userId=" + user.getUserId()
-
     }
 
     @RequestMapping("/logout")
