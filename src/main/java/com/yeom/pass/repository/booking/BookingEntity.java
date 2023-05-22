@@ -46,6 +46,8 @@ public class BookingEntity extends BaseEntity {
     @JoinColumn(name = "instructId", insertable = false, updatable = false)
     private Instruct instruct;
 
+    private String instructorName;
+
 
     // endedAt 기준, yyyy-MM-HH 00:00:00  -> 일 단위로 변환
     public LocalDateTime getStatisticsAt() {

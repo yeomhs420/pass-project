@@ -38,6 +38,10 @@ dependencies {
 	runtimeOnly 'mysql:mysql-connector-java'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	implementation 'org.springframework.boot:spring-boot-starter-webflux' // Use WebFlux for WebClient
+	implementation 'com.fasterxml.jackson.core:jackson-databind'
+	implementation 'org.apache.httpcomponents:httpclient:4.5.13'
 }
 
 tasks.named('test') {

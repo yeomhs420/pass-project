@@ -25,4 +25,5 @@ public class Instruct {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
+
 }

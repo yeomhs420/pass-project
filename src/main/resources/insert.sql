@@ -1,9 +1,9 @@
 INSERT INTO `user` (user_id, user_name, status, phone)
-VALUES ('A1000000', '우영우', 'ACTIVE', '010-1111-2222'),
+VALUES ('A1000000', '하정민', 'ACTIVE', '010-1111-2222'),
 ('A1000001', '염형섭', 'ACTIVE', '010-3333-4444'),
 ('A1000002', '이준호', 'INACTIVE', '010-5555-6666'),
 ('B1000010', '권민우', 'ACTIVE', '010-7777-8888'),
-('B1000011', '동그라미', 'INACTIVE', '010-8888-9999'),
+('B1000011', '아무개', 'INACTIVE', '010-8888-9999'),
 ('B2000000', '한선영', 'ACTIVE', '010-9999-0000'),
 ('B2000001', '태수미', 'ACTIVE', '010-0000-1111');
 
@@ -32,6 +32,10 @@ VALUES ('Starter PT 10회', 10, 60, '2022-08-01 00:00:00'),
 ('바디 챌린지 PT 2주', NULL, 28, '2022-08-01 00:00:00'),
 ('바디 챌린지 PT 4주', NULL, 48, '2022-08-01 00:00:00'),
 ('인바디 상담', NULL, NULL, '2022-08-01 00:00:00');
+
+--INSERT INTO notification (notificatio_seq, count, period, created_at)
+--VALUES ('Starter PT 10회', 10, 60, '2022-08-01 00:00:00');
+
 
 
 INSERT INTO instruct (name, gender) values ('염형섭', '남자');

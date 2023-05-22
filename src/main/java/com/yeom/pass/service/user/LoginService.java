@@ -3,11 +3,13 @@ package com.yeom.pass.service.user;
 import com.yeom.pass.repository.user.UserDto;
 import com.yeom.pass.repository.user.UserEntity;
 import com.yeom.pass.repository.user.UserRepository;
+import io.netty.handler.codec.base64.Base64Encoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import java.beans.Encoder;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;

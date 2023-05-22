@@ -61,9 +61,9 @@
                             <p class="mb-0 fs-7 text-end" th:if="${pass.getStatus().name() == 'READY'}">시작 전</p>
                             <p class="mb-0 fs-7 text-end" th:if="${pass.getStatus().name() == 'PROGRESSED'}">진행 중</p>
                             <p class="mb-0 fs-7 text-end" th:if="${pass.getStatus().name() == 'EXPIRED'}">만료</p>
-                            <form action="passes/reserve" method="post">
+                            <form action="passes/reserve" method="get">
                                 <input type="hidden" name="passSeq" th:value="${pass.getPassSeq()}" />
-                                <input type="hidden" name="startedAt" th:value="${pass.getStartedAt()}" />
+                                <input type="hidden" name="userId" th:value="${user.getUserId()}" />
                             </form>
                         </div>
                     </div>

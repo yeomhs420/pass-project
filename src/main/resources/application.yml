@@ -29,3 +29,7 @@ spring:
             prefix: /templates/
             suffix: .mustache
             expose-session-attributes: true
+
+kakao:
+    api:
+        key: 0473b29526040280fb99ae1f4fefbc15

@@ -19,11 +19,9 @@ function calendarInit() {
     var currentDate = thisMonth.getDate(); // 달력에서 표기하는 일
 
 
-    var passSeq = document.querySelector("input[name=passSeq]").value;  // 컨트롤러에서 model 을 통해 넘겨준 passSeq 데이터
-    console.log(passSeq)
+    var passSeq = document.querySelector("input[name=passSeq]").value;  // 컨트롤러에서 model 을 통해 넘겨준 passSeq 데이터를 calender.html 의 input 에서 가져옴
+    var userId = document.querySelector("input[name=userId]").value;
 
-    // kst 기준 현재시간
-    // console.log(thisMonth);
 
     // 캘린더 렌더링
     renderCalendar(thisMonth);
@@ -92,11 +90,11 @@ function calendarInit() {
                                    console.log(json);
                                    renderReservationList(json, clickedDate, clickedMonth);
                                })
+
                             });
                           });
 
     }
-
 
       function renderReservationList(instructors, clickedDate, clickedMonth) {
         const list = $('<ul>');
@@ -134,6 +132,18 @@ function calendarInit() {
 
             var end_time = current + ' ' + instructor.time.split("-")[1];
 
+            var requestData = {
+              name: 'usePassesJob',
+              jobParameters: {
+                userId: userId,
+                passSeq: passSeq,
+                started_at: start_time,
+                ended_at: end_time,
+                instructor_id: instructor.id,
+                instructor_name: instructor.name
+              }
+            };
+
                 // 예약 버튼 클릭 시 instructor 의 reserveNumber 값 증가
             reserveBtn.click(() => {
               if (reserveNumber !== undefined && reserveNumber !== null && reserveNumber < instructor.limitNumber) {
@@ -141,12 +151,13 @@ function calendarInit() {
                 $.ajax({
                   url: 'http://localhost:8081/job/launcher',
                   method: 'POST',
-                  data: JSON.stringify({name: 'usePassesJob', jobParameters: {userId: 'A1000001', passSeq: passSeq, started_at: start_time, ended_at: end_time, instructor_id: instructor.id}}),
+//                  data: JSON.stringify({name: 'usePassesJob', jobParameters: {userId: 'A1000001', passSeq: passSeq, started_at: start_time, ended_at: end_time, instructor_id: instructor.id, instructor_name : instructor.name}}),
+                  data: JSON.stringify(requestData),
                   contentType: "application/json; charset=utf-8",
                   dataType: 'json',
                   success: function(response) {
                     alert('수업이 예약되었습니다!');
-                    location.href = '/passes?userId=' + 'A1000001'; // userId는 추후에 session id로 수정
+                    location.href = '/passes?userId=' + userId; // userId는 추후에 session id로 수정
                     console.log(response);
                   },
                   error: function(xhr, status, error) {

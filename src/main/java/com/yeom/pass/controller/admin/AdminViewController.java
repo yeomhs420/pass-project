@@ -1,5 +1,7 @@
 package com.yeom.pass.controller.admin;
 
+import com.yeom.pass.repository.booking.BookingDto;
+import com.yeom.pass.repository.booking.BookingEntity;
 import com.yeom.pass.repository.user.UserEntity;
 import com.yeom.pass.service.packaze.PackageService;
 import com.yeom.pass.service.pass.BulkPassService;
@@ -77,12 +79,11 @@ public class AdminViewController {
     @GetMapping("/user")
     public ModelAndView userInfo(ModelAndView modelAndView){
         List<UserEntity> userList = userService.getUserList();
-        for(UserEntity u : userList){
-            String date = u.getCreatedAt().toString().split("T")[0];
-            //u.setDate(date);
-        }
+        List<BookingDto> bookingList = userService.getBookingList();
+
         modelAndView.addObject("userInfo", userList);
         modelAndView.addObject("userNum", userList.size());
+        modelAndView.addObject("bookingInfo", bookingList);
         modelAndView.setViewName("admin/user");
         return modelAndView;
     }
