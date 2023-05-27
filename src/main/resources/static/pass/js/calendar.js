@@ -108,16 +108,14 @@ function calendarInit() {
 
           sortedInstructors.forEach((instructor) => {
 
-            const listItem = $('<li>');
-            console.log(instructor);
-            console.log(instructor.reserveNumber);
+            const listItem = $('<li style = "list-style:none">');
             const reserveNumber = instructor.reserveNumber || 0; // reserveNumber 값이 없으면 0으로 초기화
 
-            const box = $('<div class="box">');
-            const profileImg = $('<img src="/admin/img/undraw_profile_2.svg" style="width:100px">');
-            const timeSpan = $(`<span style="margin-left: 10px;">${instructor.time}</span>`);
-            const countSpan = $(`<span style="margin-left: 10px;">${reserveNumber}/${instructor.limitNumber}</span>`);
-            const reserveBtn = $('<button>예약</button>');
+            const box = $('<div style="width:400px; margin-bottom: 20px; border-style:none" class="box">');
+            const profileImg = $('<img src="/admin/img/undraw_profile_2.svg" style="width:120px">');
+            const timeSpan = $(`<span style="margin-left: 20px;">${instructor.time}</span>`);
+            const countSpan = $(`<span style="margin-left: 20px;">${reserveNumber}/${instructor.limitNumber}</span>`);
+            const reserveBtn = $('<button style="margin-left: 20px;">예약하기</button>');
 
 
             var Year = currentYear.toString();
@@ -144,27 +142,41 @@ function calendarInit() {
               }
             };
 
-                // 예약 버튼 클릭 시 instructor 의 reserveNumber 값 증가
+            // 예약 버튼 클릭 시 instructor 의 reserveNumber 값 증가
             reserveBtn.click(() => {
               if (reserveNumber !== undefined && reserveNumber !== null && reserveNumber < instructor.limitNumber) {
                 countSpan.text(`${instructor.reserveNumber}/${instructor.limitNumber}`);
-                $.ajax({
-                  url: 'http://localhost:8081/job/launcher',
-                  method: 'POST',
-//                  data: JSON.stringify({name: 'usePassesJob', jobParameters: {userId: 'A1000001', passSeq: passSeq, started_at: start_time, ended_at: end_time, instructor_id: instructor.id, instructor_name : instructor.name}}),
-                  data: JSON.stringify(requestData),
-                  contentType: "application/json; charset=utf-8",
-                  dataType: 'json',
-                  success: function(response) {
-                    alert('수업이 예약되었습니다!');
-                    location.href = '/passes?userId=' + userId; // userId는 추후에 session id로 수정
-                    console.log(response);
-                  },
-                  error: function(xhr, status, error) {
-                    console.error(error);
-                  }
-                });
-              }
+                            $.ajax({    // 예약한 상태인지 먼저 체크
+                                        url:"http://localhost:8080/passes/check_booking",
+                                        method: 'POST',
+                                        data: JSON.stringify({userId: userId, passSeq: passSeq}),
+                                        contentType: "application/json; charset=utf-8",
+                                        success: function(data){
+                                            console.log(data);
+                                            if(data.bookingIsUsed == false){
+                                                $.ajax({    // 예약 정보 전송
+                                                                  url: 'http://localhost:8081/job/launcher',
+                                                                  method: 'POST',
+                                                                  data: JSON.stringify(requestData),
+                                                                  contentType: "application/json; charset=utf-8",
+                                                                  dataType: 'json',
+                                                                  success: function(response) {
+                                                                    alert('수업이 예약되었습니다!');
+                                                                    location.href = '/passes?userId=' + userId;
+                                                                    console.log(response);
+                                                                  },
+                                                                  error: function(xhr, status, error) {
+                                                                    console.error(error);
+                                                                  }
+                                                                });
+                                                }
+                                            else{
+                                            alert('이미 예약된 상태입니다.')
+                                            }
+                                            }
+
+                                    });
+                }
             });
 
                 box.append(profileImg, timeSpan, countSpan, reserveBtn);

@@ -41,7 +41,7 @@
 <header class="masthead bg-secondary text-white text-center">
     <div class="container d-flex align-items-center flex-column">
         <img class="masthead-avatar mb-3" src="/pass/assets/img/undraw_profile.svg" alt="..." />
-        <p class="masthead-subheading font-weight-light mb-3" th:text="${user.getUserName()} + ' 회원님 안녕하세요 ✋'"/>
+        <p class="masthead-subheading font-weight-light mb-3" th:if="${user != null}" th:text="${user.getUserName()} + ' 회원님 안녕하세요 ✋'"/>
     </div>
 </header>
 <!-- Passes-->

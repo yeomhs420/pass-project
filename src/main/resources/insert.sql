@@ -14,6 +14,8 @@ VALUES ('HANBADA', 'A1000000', '한바다', '한바다 임직원 그룹'),
 ('HANBADA', 'B1000010', '한바다', '한바다 임직원 그룹'),
 ('HANBADA', 'B2000000', '한바다', '한바다 임직원 그룹'),
 ('TAESAN', 'B2000001', '태산', '태산 임직원 그룹');
+--('HANBADA', 'yeomhs420', '한바다', '한바다 임직원 그룹');
+
 
 INSERT INTO statistics (statistics_at, all_count, attended_count, cancelled_count)
 VALUES ('2022-09-01 00:00:00', 5, 3, 2),
@@ -49,4 +51,4 @@ INSERT INTO instruct_date_time (limit_number, reserve_number, time, instruct_dat
 INSERT INTO instruct_date_time (limit_number, reserve_number, time, instruct_date_id) values (4, 0, '14:00-15:00', 2);
 INSERT INTO instruct_date_time (limit_number, reserve_number, time, instruct_date_id) values (1, 0, '10:00-11:00', 2);
 INSERT INTO instruct_date_time (limit_number, reserve_number, time, instruct_date_id) values (2, 0, '16:00-17:00', 3);
-INSERT INTO instruct_date_time (limit_number, reserve_number, time, instruct_date_id) values (9, 0, '18:00-19:00', 3);
+--INSERT INTO instruct_date_time (limit_number, reserve_number, time, instruct_date_id) values (9, 0, '18:00-19:00', 3);

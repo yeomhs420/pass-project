@@ -1,5 +1,7 @@
 package com.yeom.pass.service.pass;
 
+import com.yeom.pass.repository.booking.BookingEntity;
+import com.yeom.pass.repository.booking.BookingRepository;
 import com.yeom.pass.repository.pass.PassEntity;
 import com.yeom.pass.repository.pass.PassRepository;
 import lombok.RequiredArgsConstructor;
@@ -12,10 +14,18 @@ import java.util.List;
 public class PassService {
     private final PassRepository passRepository;
 
+    private final BookingRepository bookingRepository;
+
     public List<Pass> getPasses(final String userId) {
         final List<PassEntity> passEntities = passRepository.findByUserId(userId);
         return PassModelMapper.INSTANCE.map(passEntities);
+    }
 
+    public Boolean getBooking(final String userId, final int passSeq){
+
+        BookingEntity bookingEntity = bookingRepository.findByPassSeqAndUserId(passSeq, userId);
+
+        return bookingEntity.isUsedPass();
     }
 
 }

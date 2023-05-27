@@ -1,5 +1,7 @@
 package com.yeom.pass.controller.pass;
 
+import com.yeom.pass.repository.booking.BookingEntity;
+import com.yeom.pass.repository.booking.BookingRepository;
 import com.yeom.pass.repository.instructor.InstructDto;
 import com.yeom.pass.service.instructor.InstructorService;
 import com.yeom.pass.service.pass.Pass;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +26,7 @@ public class PassViewController {
     private final PassService passService;
     private final InstructorService instructorService;
 
+
     public PassViewController(UserService userService, PassService passService, InstructorService instructorService) {
         this.userService = userService;
         this.passService = passService;
@@ -29,10 +34,14 @@ public class PassViewController {
     }
 
     @GetMapping
-    public ModelAndView getPasses(@RequestParam("userId") String userId, ModelAndView modelAndView) {
-        // passes, user
-        final List<Pass> passes = passService.getPasses(userId);
-        final User user = userService.getUser(userId);
+    public ModelAndView getPasses(@RequestParam(value = "userId", required = false) String userId, ModelAndView modelAndView) {
+        List<Pass> passes = new ArrayList<>();
+        User user = null;
+
+        if (userId != null) {
+            passes = passService.getPasses(userId);
+            user = userService.getUser(userId);
+        }
 
         modelAndView.addObject("passes", passes);
         modelAndView.addObject("user", user);
@@ -50,10 +59,20 @@ public class PassViewController {
         return modelAndView;
     }
 
+    @PostMapping("/check_booking")    // 예약 중복 체크
+    @ResponseBody
+    public ResponseEntity<Map> checkBooking(@RequestBody Map<String, String> data) {
+
+        Boolean bookingIsUsed = passService.getBooking(data.get("userId"), Integer.parseInt(data.get("passSeq")));
+        Map<String, Boolean> map = new HashMap<>();
+        map.put("bookingIsUsed", bookingIsUsed);
+
+        return new ResponseEntity<>(map, HttpStatus.OK);
+    }
+
     @PostMapping("/reserve_date")   // 날짜 선택 시
     @ResponseBody
     public ResponseEntity<List<InstructDto>> reserveDate(@RequestBody Map<String, String> data) {
-
 
         String currentYear = data.get("year");
         String clickedMonth = data.get("month");
@@ -70,5 +89,7 @@ public class PassViewController {
 
         return new ResponseEntity<>(instructDtoList, HttpStatus.OK); // 해당 날짜에 등록되어있는 강사들과 해당 강사의 비어있는 시간들을 반환
     }
+
+
 
 }
