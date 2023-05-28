@@ -60,7 +60,7 @@
                                 <h6 class="m-0 font-weight-bold text-primary">이용권 일괄 지급 등록</h6>
                             </div>
                             <div class="card-body">
-                                <form action="#" th:action="@{/admin/bulk-pass}" th:object="${request}" method="post">
+                                <form action="#" th:action="@{/admin/bulk-pass}" th:object="${request}" method="post" onsubmit="return validateForm()">
                                     <div class="small mb-1">패키지</div>
                                     <select class="form-control mb-3" th:field="*{packageSeq}">
                                         <option value="">등록된 패키지를 선택해주세요.</option>
@@ -80,7 +80,7 @@
                                     </select>
 
                                     <div class="small mb-1">시작 일시</div>
-                                    <input class="form-control mb-5" type="text" placeholder="2022-09-01 00:00" th:field="*{startedAt}" />
+                                    <input class="form-control mb-5" type="text" placeholder="2022-09-01 00:00" th:field="*{startedAt}" id="startedAtInput" />
                                     <div class="d-flex align-items-end flex-column">
                                         <input class="btn btn-primary" type="submit" value="+ 등록">
                                     </div>
@@ -119,6 +119,21 @@
                             }
                           });
                           alert('일괄 등록 되었습니다.');
+                        }
+
+
+
+                        function validateForm() {
+                            var startedAtInput = document.getElementById("startedAtInput");
+                            var startedAtValue = startedAtInput.value;
+
+                            var pattern = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
+                            if (!pattern.test(startedAtValue)) {
+                                alert("올바른 날짜 형식을 입력해주세요. (예: 2022-09-01 00:00)");
+                                return false; // 폼 제출을 중단합니다.
+                            }
+
+                            return true; // 폼 제출을 진행합니다.
                         }
                     </script>
 

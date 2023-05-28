@@ -57,9 +57,9 @@ public class JoinController {
             return new ResponseEntity<>(error_text, HttpStatus.BAD_REQUEST);
         }
 
-        if(loginService.create(userDto, error_text) == true) {
+        if(loginService.create(userDto, error_text) == true) // user 정보 save
             return new ResponseEntity<>(error_text, HttpStatus.BAD_REQUEST);
-        }
+
 
         UserEntity userEntity = userRepository.findByUserId(userDto.getUserId());
 

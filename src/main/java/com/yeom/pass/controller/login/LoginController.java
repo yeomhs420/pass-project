@@ -3,6 +3,7 @@ package com.yeom.pass.controller.login;
 import com.yeom.pass.repository.user.UserDto;
 import com.yeom.pass.repository.user.UserEntity;
 import com.yeom.pass.service.user.LoginService;
+import com.yeom.pass.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ public class LoginController {
     @Autowired
     private LoginService loginService;
 
+    @Autowired
+    private UserService userService;
+
     @RequestMapping({"/", ""})
     public String Login(){ return "/login/login"; };
 
@@ -43,6 +47,8 @@ public class LoginController {
         session.setAttribute("user", user);
 
         session.setMaxInactiveInterval(7200);
+
+        userService.setUserGroup(user); // 그룹 생성
 
         Map<String, String> userDtoMap = new HashMap<>();
         userDtoMap.put("userId", userDto.getUserId());

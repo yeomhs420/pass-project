@@ -32,7 +32,6 @@ public class BulkPassService {
         // bulkPassRequest 를 기반으로 passEntity 를 생성하여 DB에 저장
         PackageEntity packageEntity = packageRepository.findById(bulkPassRequest.getPackageSeq()).orElseThrow();
 
-
         BulkPassEntity bulkPassEntity = BulkPassModelMapper.INSTANCE.map(bulkPassRequest);
         bulkPassEntity.setStatus(BulkPassStatus.READY);
         bulkPassEntity.setCount(packageEntity.getCount());

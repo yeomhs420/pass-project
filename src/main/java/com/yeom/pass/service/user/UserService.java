@@ -4,6 +4,8 @@ import com.yeom.pass.repository.booking.BookingDto;
 import com.yeom.pass.repository.booking.BookingEntity;
 import com.yeom.pass.repository.booking.BookingRepository;
 import com.yeom.pass.repository.user.UserEntity;
+import com.yeom.pass.repository.user.UserGroupMappingEntity;
+import com.yeom.pass.repository.user.UserGroupMappingRepository;
 import com.yeom.pass.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,6 +20,8 @@ public class UserService {
     private final UserRepository userRepository;
 
     private final BookingRepository bookingRepository;
+
+    private final UserGroupMappingRepository userGroupMappingRepository;
 
     public User getUser(final String userId) {
         UserEntity userEntity = userRepository.findByUserId(userId);
@@ -54,5 +58,15 @@ public class UserService {
 
         }
         return bookingList;
+    }
+
+    public void setUserGroup(UserEntity user){
+        UserGroupMappingEntity userGroupMappingEntity = new UserGroupMappingEntity();
+        userGroupMappingEntity.setUserGroupId("HANBADA");
+        userGroupMappingEntity.setUserId(user.getUserId());
+        userGroupMappingEntity.setUserGroupName("한바다");
+        userGroupMappingEntity.setDescription("한바다 임직원 그룹");
+
+        userGroupMappingRepository.save(userGroupMappingEntity);
     }
 }
