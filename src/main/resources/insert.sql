@@ -43,9 +43,9 @@ VALUES ('Starter PT 10회', 10, 60, '2022-08-01 00:00:00'),
 INSERT INTO instruct (name, gender) values ('염형섭', '남자');
 INSERT INTO instruct (name, gender) values ('하정민', '남자');
 INSERT INTO instruct (name, gender) values ('홍길동', '남자');
-INSERT INTO instruct_date (date, instruct_id) values ('2023-03-25', 1);
-INSERT INTO instruct_date (date, instruct_id) values ('2023-03-25', 2);
-INSERT INTO instruct_date (date, instruct_id) values ('2023-03-25', 3);
+INSERT INTO instruct_date (date, instruct_id) values ('2023-06-25', 1);
+INSERT INTO instruct_date (date, instruct_id) values ('2023-06-25', 2);
+INSERT INTO instruct_date (date, instruct_id) values ('2023-06-25', 3);
 INSERT INTO instruct_date_time (limit_number, reserve_number, time, instruct_date_id) values (5, 0, '15:00-16:00', 1);
 INSERT INTO instruct_date_time (limit_number, reserve_number, time, instruct_date_id) values (3, 0, '11:00-12:00', 1);
 INSERT INTO instruct_date_time (limit_number, reserve_number, time, instruct_date_id) values (4, 0, '14:00-15:00', 2);
