@@ -16,8 +16,9 @@ import static com.yeom.pass.repository.user.UserStatus.ACTIVE;
 @Table(name = "user")
 @AllArgsConstructor
 @NoArgsConstructor
-@EqualsAndHashCode(callSuper = true)    // 해당 클래스가 상속받은 부모 클래스의 필드를 가져옴
-public class UserEntity extends BaseEntity{
+//@EqualsAndHashCode(callSuper = true)    // 해당 클래스가 상속받은 부모 클래스의 필드를 가져옴
+public class UserEntity{
+
     @Id
     private String userId;
 

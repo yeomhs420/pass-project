@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @ToString
 public class BulkPassRequest {
     private Integer packageSeq;
-    private String userGroupId;
+//    private String userGroupId;
+    private String userId;
     private LocalDateTime startedAt;
 
     public void setStartedAt(String startedAtString) {

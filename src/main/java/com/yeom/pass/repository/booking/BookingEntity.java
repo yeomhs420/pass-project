@@ -23,7 +23,7 @@ public class BookingEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer bookingSeq;
     private Integer passSeq;
-    private String userId;
+    //private String userId;
 
     @Enumerated(EnumType.STRING)
     private BookingStatus status;
@@ -35,7 +35,7 @@ public class BookingEntity extends BaseEntity {
     private LocalDateTime cancelledAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "userId", insertable = false, updatable = false)
+    @JoinColumn(name = "user_id",insertable = false, updatable = false)
     private UserEntity userEntity;
 
     @ManyToOne(fetch = FetchType.LAZY)

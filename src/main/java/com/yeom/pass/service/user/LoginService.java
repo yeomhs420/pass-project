@@ -26,7 +26,7 @@ public class LoginService {
     public void encryptPassword(UserEntity user) {
 
         String enPw = passwordEncoder.encode(user.getPassword());
-        user.setCreatedAt(LocalDateTime.now());
+        //user.setCreatedAt(LocalDateTime.now());
         user.setDate(LocalDateTime.now().toString());
         user.setPassword(enPw);
 

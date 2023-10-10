@@ -28,8 +28,13 @@ spring:
         mustache:
             prefix: /templates/
             suffix: .mustache
-            expose-session-attributes: true
+    mustache:
+        expose-session-attributes: true
 
+server:
+    servlet:
+        session:
+            timeout: 60
 kakao:
     api:
         key: 0473b29526040280fb99ae1f4fefbc15

@@ -25,6 +25,10 @@ public class PassService {
 
         BookingEntity bookingEntity = bookingRepository.findByPassSeqAndUserId(passSeq, userId);
 
+
+        if(bookingEntity == null)
+            return false;
+
         return bookingEntity.isUsedPass();
     }
 

@@ -23,9 +23,9 @@ public class UserService {
 
     private final UserGroupMappingRepository userGroupMappingRepository;
 
-    public User getUser(final String userId) {
+    public UserEntity getUser(final String userId) {
         UserEntity userEntity = userRepository.findByUserId(userId);
-        return UserModelMapper.INSTANCE.toUser(userEntity);
+        return userEntity;
     }
 
     public List<UserEntity> getUserList(){
@@ -33,8 +33,10 @@ public class UserService {
         List<UserEntity> userEntityList = userRepository.findAll();
 
         for(UserEntity u : userEntityList){
-            String date = u.getCreatedAt().toString().split("T")[0];
-            u.setDate(date);
+            if(u.getDate() != null){
+                String date = u.getDate().split("T")[0];
+                u.setDate(date);
+            }
         }
 
         return userEntityList;
@@ -52,6 +54,7 @@ public class UserService {
                 bookingDto.setEndedAt(booking.getEndedAt().toString().split("T")[1]);
                 bookingDto.setInstructorName(booking.getInstructorName());
                 bookingDto.setUserName(booking.getUserEntity().getUserName());
+                bookingDto.setUserId(booking.getUserEntity().getUserId());
 
                 bookingList.add(bookingDto);
             }

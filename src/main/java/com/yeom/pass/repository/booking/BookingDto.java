@@ -19,6 +19,7 @@ public class BookingDto {
 
     private Integer bookingSeq;
     private String userName;
+    private String userId;
 
     private String startedAt;
     private String endedAt;

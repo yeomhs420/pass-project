@@ -17,7 +17,7 @@ import static com.yeom.pass.repository.user.UserStatus.ACTIVE;
 @ToString(callSuper = true)
 public class UserDto{
 
-    private Integer id;
+    private long id;
 
     @Size(min = 5, max = 20, message = "아이디는 5~20 자리로 입력해주세요.")
     private String userId;

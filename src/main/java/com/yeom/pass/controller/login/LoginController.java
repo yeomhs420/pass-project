@@ -22,10 +22,8 @@ public class LoginController {
 
     @Autowired
     private HttpSession session;
-
     @Autowired
     private LoginService loginService;
-
     @Autowired
     private UserService userService;
 

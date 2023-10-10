@@ -72,6 +72,7 @@ public class AdminViewController {
 
     @PostMapping("/bulk-pass")
     public String addBulkPass(@ModelAttribute("request") BulkPassRequest request, Model model) {
+        System.out.println(request.getUserId());
         bulkPassService.addBulkPass(request);
         return "redirect:/admin/bulk-pass";
     }

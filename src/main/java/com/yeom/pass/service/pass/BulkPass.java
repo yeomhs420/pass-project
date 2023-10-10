@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 public class BulkPass {
     private Integer bulkPassSeq;
     private String userGroupId;
+    private String userId;
     private Integer count;
     private BulkPassStatus status;
     private LocalDateTime startedAt;

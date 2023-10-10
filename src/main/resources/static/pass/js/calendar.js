@@ -123,6 +123,9 @@ function calendarInit() {
             if (clickedMonth >= 1 && clickedMonth <= 9) {
                 Month = "0" + clickedMonth.toString();
             }
+            else{
+                Month = clickedMonth.toString();
+            }
             var Date = clickedDate.toString();
             var current = Year + '-' + Month + '-' + Date;
 

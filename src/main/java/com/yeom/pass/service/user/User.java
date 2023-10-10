@@ -1,15 +1,21 @@
 package com.yeom.pass.service.user;
 
+import com.yeom.pass.repository.user.UserDto;
 import com.yeom.pass.repository.user.UserEntity;
 import com.yeom.pass.repository.user.UserStatus;
 import lombok.*;
 
-@Getter
-@Setter
-@ToString
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(callSuper = true)
 public class User {
+
     private String userId;
     private String userName;
     private UserStatus status;
@@ -22,4 +28,6 @@ public class User {
         this.phone = userEntity.getPhone();
         return this;
     }
+
+
 }

@@ -3,17 +3,21 @@ package com.yeom.pass.controller.pass;
 import com.yeom.pass.repository.booking.BookingEntity;
 import com.yeom.pass.repository.booking.BookingRepository;
 import com.yeom.pass.repository.instructor.InstructDto;
+import com.yeom.pass.repository.user.UserEntity;
 import com.yeom.pass.service.instructor.InstructorService;
 import com.yeom.pass.service.pass.Pass;
 import com.yeom.pass.service.pass.PassService;
 import com.yeom.pass.service.user.User;
 import com.yeom.pass.service.user.UserService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,23 +29,26 @@ public class PassViewController {
     private final UserService userService;
     private final PassService passService;
     private final InstructorService instructorService;
+    private final HttpSession session;
 
-
-    public PassViewController(UserService userService, PassService passService, InstructorService instructorService) {
+    public PassViewController(UserService userService, PassService passService, InstructorService instructorService, HttpSession httpSession) {
         this.userService = userService;
         this.passService = passService;
         this.instructorService = instructorService;
+        this.session = httpSession;
     }
 
     @GetMapping
     public ModelAndView getPasses(@RequestParam(value = "userId", required = false) String userId, ModelAndView modelAndView) {
         List<Pass> passes = new ArrayList<>();
-        User user = null;
+        UserEntity user = null;
 
         if (userId != null) {
             passes = passService.getPasses(userId);
             user = userService.getUser(userId);
         }
+
+        session.setAttribute("user", user);
 
         modelAndView.addObject("passes", passes);
         modelAndView.addObject("user", user);
