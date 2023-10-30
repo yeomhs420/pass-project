@@ -7,9 +7,6 @@ VALUES ('A1000000', '하정민', 'ACTIVE', '010-1111-2222'),
 ('B2000000', '한선영', 'ACTIVE', '010-9999-0000'),
 ('B2000001', '태수미', 'ACTIVE', '010-0000-1111');
 
-INSERT INTO `user` (user_id, user_name, status, password, phone)
-VALUES ('yeomhs420', '염형섭', 'ACTIVE', '@rmaak2413', '010-1111-2222');
-
 
 INSERT INTO user_group_mapping (user_group_id, user_id, user_group_name, description)
 VALUES ('HANBADA', 'A1000000', '한바다', '한바다 임직원 그룹'),

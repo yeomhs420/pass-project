@@ -18,4 +18,10 @@ public interface BookingRepository extends JpaRepository<BookingEntity, Integer>
 
     @Query(value = "SELECT b FROM BookingEntity b WHERE b.passEntity.passSeq = :passSeq AND b.userEntity.userId = :userId AND b.status = 'READY'")
     BookingEntity findByPassSeqAndUserId(int passSeq, String userId);
+
+    @Transactional
+    @Modifying
+    @Query(value = "UPDATE BookingEntity b SET b.usedPass = :usedPass WHERE b.bookingSeq = :bookingSeq")
+    int updateBooking(int bookingSeq, boolean usedPass);
+
 }

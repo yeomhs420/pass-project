@@ -92,6 +92,7 @@
                                                 <th class="admin_board_head">회원명</th>
                                                 <th class="admin_board_head">시작 시간</th>
                                                 <th class="admin_board_head">종료 시간</th>
+                                                <th class="admin_board_head">수업 종료</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -103,6 +104,10 @@
                                                 <td th:text="${vo.userName}"></td>
                                                 <td th:text="${vo.startedAt}"></td>
                                                 <td th:text="${vo.endedAt}"></td>
+                                                <td>
+                                                    <button class="end-class-button">수업 종료</button>
+                                                </td>
+
                                             </tr>
                                         </tbody>
                                     </table>
@@ -110,6 +115,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -132,4 +138,39 @@
         document.getElementById("userListDiv").style.display = "none";
         document.getElementById("reservationListDiv").style.display = "block";
     });
+
+
+    document.querySelector('.end-class-button').addEventListener('click', function(event) {
+        const button = $(this);
+
+        // 버튼의 부모 행을 찾습니다.
+        const row = button.closest('tr');
+
+        // 행 내의 각 데이터 셀을 선택하여 데이터를 가져옵니다.
+        const date = row.find('td:nth-child(1)').text();
+        const bookingSeq = row.find('td:nth-child(2)').text();
+        const instructorName = row.find('td:nth-child(3)').text();
+        const userId = row.find('td:nth-child(4)').text();
+        const userName = row.find('td:nth-child(5)').text();
+        const startedAt = row.find('td:nth-child(6)').text();
+        const endedAt = row.find('td:nth-child(7)').text();
+
+        console.log("Booking Sequence: " + bookingSeq);
+        console.log("User ID: " + userId);
+
+        $.ajax({
+            type: 'POST',
+            url: "http://localhost:8080/passes/end_class",
+            data: JSON.stringify({userId: userId, bookingSeq: bookingSeq}),
+            contentType: "application/json; charset=utf-8",
+            success: function(response) {
+                alert("수업이 종료되었습니다.");
+            },
+            error: function() {
+                alert("수업 종료 요청 실패.");
+            }
+        });
+});
 </script>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

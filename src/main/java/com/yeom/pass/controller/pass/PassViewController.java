@@ -104,5 +104,17 @@ public class PassViewController {
     }
 
 
+    @PostMapping("/end_class")  //수업 종료
+    @ResponseBody
+    public ResponseEntity<Map> endClass(@RequestBody Map<String, String> data) {
+
+        int bookingSeq = Integer.parseInt(data.get("bookingSeq"));
+
+        if(passService.endBooking(bookingSeq) == 1){
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
 
 }

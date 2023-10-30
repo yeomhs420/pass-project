@@ -32,4 +32,9 @@ public class PassService {
         return bookingEntity.isUsedPass();
     }
 
+    public int endBooking(final int bookingSeq){
+        int isEnded = bookingRepository.updateBooking(bookingSeq, false);
+
+        return isEnded;
+    }
 }
