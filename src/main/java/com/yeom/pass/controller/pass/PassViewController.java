@@ -43,12 +43,18 @@ public class PassViewController {
         List<Pass> passes = new ArrayList<>();
         UserEntity user = null;
 
-        if (userId != null) {
+//        if (userId != null) {
+//            passes = passService.getPasses(userId);
+//            user = userService.getUser(userId);
+//        }
+
+        if(session.getAttribute("user") != null){
+            user = (UserEntity) session.getAttribute("user");
+            userId = user.getUserId();
             passes = passService.getPasses(userId);
-            user = userService.getUser(userId);
         }
 
-        session.setAttribute("user", user);
+//        session.setAttribute("user", user);
 
         modelAndView.addObject("passes", passes);
         modelAndView.addObject("user", user);

@@ -63,7 +63,7 @@
                 dataType: 'json',
                 success : function(result) {
                     console.log(result);
-                    location.href = "/passes?userId=" + result.userId;
+                    location.href = "/passes";
                 },
                 error:function(error){
                     if(error.responseJSON.msg){
