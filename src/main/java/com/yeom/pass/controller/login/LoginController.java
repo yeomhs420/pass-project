@@ -33,7 +33,7 @@ public class LoginController {
 
     @PostMapping("/action")
     @ResponseBody
-    public ResponseEntity<Map<String, String>> LoginAction(UserDto userDto, Model model) {
+    public ResponseEntity<Map<String, String>> LoginAction(@RequestBody UserDto userDto) {
 
         Map<String, String> error_text = new HashMap<>();
 

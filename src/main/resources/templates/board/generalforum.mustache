@@ -96,13 +96,16 @@
                             {{/nextIndex}}
                         {{/searchExist}}
                     </ul>
-                    <select name="name" id="select_value">
-                        <option value="Title">제목</option>
-                        <option value="Content">내용</option>
-                        <option value="Writer">작성자</option>
-                    </select>
-                    <input type="text" name="keyword" id="sword" value="">
-                    <button type="submit" class="s_btn">검색</button>
+
+                    <form action="/generalforum" method="get">
+                        <select name="name">
+                            <option value="Title">제목</option>
+                            <option value="Content">내용</option>
+                            <option value="Writer">작성자</option>
+                        </select>
+                        <input type="text" name="keyword" value="">
+                        <button type="submit">검색</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -132,16 +135,7 @@
 
 
 
-    $(".s_btn").on("click", function(){
 
-        var sv  = document.getElementById("select_value");
-		var text = (sv.options[sv.selectedIndex].value);
-
-		var search = document.getElementById("sword").value;
-
-        location.href = '/generalforum?name=' + text + '&keyword=' + search;
-
-    }); // 게시글 제목 or 내용 검색
 
 
 

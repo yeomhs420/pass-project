@@ -25,7 +25,8 @@ public class InstructorService {
                 "FROM Instruct i\n" +
                 "INNER JOIN i.instructDates id\n" +
                 "INNER JOIN id.instructDateTimes idt\n" +
-                "WHERE id.date = :date", Object[].class).setParameter("date", date).getResultList();    // 1:N 관계 join, ON절 필요x
+                "WHERE id.date = :date", Object[].class).setParameter("date", date).getResultList();
+        // JPQL 에서는 관계 매핑이 제대로 되어있을 경우 ON절 명시x
         // 해당 날짜에 해당하는 강사의 id,이름,시간,인원 정보 리스트 조회
 
 

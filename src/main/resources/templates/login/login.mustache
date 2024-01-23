@@ -22,11 +22,11 @@
                                         <h4 class="mb-4 pb-3">Log In</h4>
                                         <form name="loginForm">
                                             <div class="form-group">
-                                                <input type="text" name="userId" class="form-style" placeholder="Your Email" id="logemail" onkeyup="checkEnter(event)" autocomplete="off">
+                                                <input type="text" name="userId" class="form-style" placeholder="Your Email" id="logEmail" onkeyup="checkEnter(event)" autocomplete="off">
                                                 <i class="input-icon uil uil-at"></i>
                                             </div>
                                             <div class="form-group mt-2">
-                                                <input type="password" name="password" class="form-style" placeholder="Your Password" onkeyup="checkEnter(event)" id="logpass" autocomplete="off">
+                                                <input type="password" name="password" class="form-style" placeholder="Your Password" onkeyup="checkEnter(event)" id="logPass" autocomplete="off">
                                                 <i class="input-icon uil uil-lock-alt"></i>
                                             </div>
                                             <input class="btn mt-4" type="button" value="submit" onclick="sub()">
@@ -52,14 +52,18 @@
             }
         }
     function sub(){
-        let formData = $("form[name=loginForm]").serialize();
 
-        console.log(formData);
+        let data = {
+            userId : $("#logEmail").val(),
+            password : $("#logPass").val()
+         };
+        console.log(data);
 
         $.ajax({
                 url : '/login/action',
                 type : 'POST',
-                data : formData,
+                data : JSON.stringify(data),
+                contentType: "application/json; charset=utf-8",
                 dataType: 'json',
                 success : function(result) {
                     console.log(result);

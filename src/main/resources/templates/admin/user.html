@@ -147,13 +147,9 @@
         const row = button.closest('tr');
 
         // 행 내의 각 데이터 셀을 선택하여 데이터를 가져옵니다.
-        const date = row.find('td:nth-child(1)').text();
         const bookingSeq = row.find('td:nth-child(2)').text();
-        const instructorName = row.find('td:nth-child(3)').text();
         const userId = row.find('td:nth-child(4)').text();
-        const userName = row.find('td:nth-child(5)').text();
-        const startedAt = row.find('td:nth-child(6)').text();
-        const endedAt = row.find('td:nth-child(7)').text();
+
 
         console.log("Booking Sequence: " + bookingSeq);
         console.log("User ID: " + userId);
