@@ -43,10 +43,6 @@ public class PassViewController {
         List<Pass> passes = new ArrayList<>();
         UserEntity user = null;
 
-//        if (userId != null) {
-//            passes = passService.getPasses(userId);
-//            user = userService.getUser(userId);
-//        }
 
         if(session.getAttribute("user") != null){
             user = (UserEntity) session.getAttribute("user");
@@ -54,11 +50,10 @@ public class PassViewController {
             passes = passService.getPasses(userId);
         }
 
-//        session.setAttribute("user", user);
-
         modelAndView.addObject("passes", passes);
         modelAndView.addObject("user", user);
         modelAndView.setViewName("pass/index");
+
 
         return modelAndView;
     }
@@ -85,7 +80,7 @@ public class PassViewController {
 
     @PostMapping("/reserve_date")   // 날짜 선택 시
     @ResponseBody
-    public ResponseEntity<List<InstructDto>> reserveDate(@RequestBody Map<String, String> data) {
+    public List<InstructDto> reserveDate(@RequestBody Map<String, String> data) {
 
         String currentYear = data.get("year");
         String clickedMonth = data.get("month");
@@ -100,7 +95,7 @@ public class PassViewController {
         List<InstructDto> instructDtoList = instructorService.getInstructorsByDate(currentYear + "-" + clickedMonth + "-" + clickedDate);
         System.out.println(instructDtoList.toString());
 
-        return new ResponseEntity<>(instructDtoList, HttpStatus.OK); // 해당 날짜에 등록되어있는 강사들과 해당 강사의 비어있는 시간들을 반환
+        return instructDtoList; // 해당 날짜에 등록되어있는 강사들과 해당 강사의 비어있는 시간들을 반환
     }
 
 

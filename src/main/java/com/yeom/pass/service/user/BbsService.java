@@ -34,23 +34,15 @@ public class BbsService {
         return bbs;
     }
 
-    public Page<Bbs> listToPage(List<Bbs> bbsList, PageRequest pagable){
+    public Page<Bbs> listToPage(List<Bbs> bbsList, PageRequest pageable){
 
-        Page<Bbs> Bbs;
+        Page<Bbs> bbs = new PageImpl<>(bbsList, pageable, bbsList.size());
 
-        int start = (int)pagable.getOffset();
-        int end = Math.min((start + pagable.getPageSize()), bbsList.size());
-
-        if(start > end)
-            start = end;
-
-        Bbs = new PageImpl<Bbs>(bbsList.subList(start, end), pagable, bbsList.size());
-
-        return Bbs;
+        return bbs;
     }
     public Page<Bbs> getBbsList(BbsDto.SearchRequest request, int p){
 
-        Page<Bbs> Bbs;
+        Page<Bbs> bbsPage;
 
         PageRequest pageable = PageRequest.of(p - 1,10, Sort.by(Sort.Direction.DESC, "id"));
 
@@ -60,23 +52,25 @@ public class BbsService {
 
             List<Bbs> bbsList = eagerService.getBbsListWithEagerComments(name, keyword);
 
-            Bbs = listToPage(bbsList, pageable);   // List -> Page 변환
+            //bbsPage = bbsRepository.findAll(pageable);
 
-            for(Bbs bbs : Bbs){
+            bbsPage = listToPage(bbsList, pageable);   // List -> Page 변환
+
+            for(Bbs bbs : bbsPage){
                 bbs.setDatetime(bbs.getCreatedAt().toString().replace("T", " "));
             }
 
-            return Bbs;
+            return bbsPage;
 
         }
 
-        Bbs = bbsRepository.findAll(pageable);
+        bbsPage = eagerService.getPagedBbsWithEagerComments(pageable);
 
-        for(Bbs bbs : Bbs){
+        for(Bbs bbs : bbsPage){
             bbs.setDatetime(bbs.getCreatedAt().toString().replace("T", " "));
         }
 
-        return Bbs;
+        return bbsPage;
     }
 
     @Transactional
